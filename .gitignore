@@ -7,3 +7,4 @@ docs
 olddocs
 dist
 lib
+*.log
