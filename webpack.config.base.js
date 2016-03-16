@@ -13,7 +13,7 @@ module.exports = {
     new webpack.BannerPlugin('fireadmin.js v' + pkg.version + ' | (c) Prescott Prue.', { raw: false, entryOnly: true })
   ],
   output: {
-    library: 'Fireadmin',
+    library: 'Fireuser',
     libraryTarget: 'umd',
     publicPath: '/dist/'
   },

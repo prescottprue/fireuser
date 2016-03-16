@@ -1,8 +1,8 @@
 /* global Fireadmin */
 var firebaseUrl = 'https://abode.firebaseio.com/' // Replace with your own firebase url
-var app = new Fireadmin(firebaseUrl)
+var app = new Fireuser(firebaseUrl)
 
-console.log('fireadmin:', app)
+console.log('fireuser:', app)
 
 // Set logged in status when dom is loaded
 document.addEventListener('DOMContentLoaded', function (event) {
@@ -63,5 +63,16 @@ function providerSignup (provider) {
   app.signup({ provider }).then(function() {
     console.log('succesfully logged out')
 
+  })
+}
+
+// Login
+function getCurrentUser () {
+  var email = document.getElementById('login-email').value
+  var password = document.getElementById('login-password').value
+  app.getCurrentUser().then(function (res) {
+    console.log('currentuser:', res)
+  }, function (error) {
+    console.error('error getting current user', error)
   })
 }

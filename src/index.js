@@ -2,7 +2,7 @@ import Firebase from 'firebase'
 import auth from './utils/auth'
 import { nameFromUrl } from './utils/fb'
 
-export default class Fireadmin {
+export default class Fireuser {
   /** Constructor
    * @param {string} appName Name of application
    */
