@@ -1,0 +1,6 @@
+{
+  "cdn": {
+    "bucket": "prue-cdn",
+    "prefix": "fireuser"
+  }
+}
