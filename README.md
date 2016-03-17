@@ -24,18 +24,19 @@ Fireuser is especially useful when you are trying to administer a Firebase data 
 
 ## Getting Started
 
-1. Include the Fireuser bundle in your `index.html` :
+1. Install through npm:
 
-  ```html
-  <script src="http://cdn.prue.io/fireuser/0.0.1/fireuser.min.js"></script>
-  <!-- Or the following for the latest version -->
-  <!-- <script src="http://cdn.prue.io/fireuser/latest/fireuser.min.js"></script> -->
+  `npm install fireuser --save`
 
-  ```
-**or**
-Install through package managers:
-`npm install fireuser --save`
-`bower install fireuser --save`
+  **or**
+
+  Include the Fireuser bundle in your `index.html` :
+
+    ```html
+    <script src="http://cdn.prue.io/fireuser/0.0.2/fireuser.min.js"></script>
+    <!-- Or the following for the latest version -->
+    <!-- <script src="http://cdn.prue.io/fireuser/latest/fireuser.min.js"></script> -->
+    ```
 
 2. Create a new Fireuser Object:
 
@@ -46,25 +47,16 @@ var fireuser = new Fireuser("https://<your-app>.firebaseio.com");
 3. Start using Fireuser!
     ```javascript
     //Get count of users
-    fa.getUserCount().then(function(count){
+    fa.signup().then(function(count){
         console.log('Your app currently has ' + count + ' users.');
     });
     ```
 
-## [API Documentation](http://cdn.prue.io/fireuser/latest/docs/class/src/fireuser.js~Fireuser.html)
-#### [Docs Page](http://cdn.prue.io/fireuser/latest/docs/index.html)
-
-API Documentation is automatically generated with JSDoc and is included in this repo under `dist/docs` if you would like to view a local version.
-
-
+## API Documentation
+### [Docs Page](http://prescottprue.github.com/fireuser)
 
 ## Contributing
 
 1. Fork repository
 2. Run `npm install` to install dev dependencies.
 3. Run `npm start` to Serve and Open the dev environment.
-
-## Planning
-* Role Management
-* Automatic Rules Setup
-* Admin Parameter

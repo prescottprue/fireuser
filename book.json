@@ -6,11 +6,11 @@
   "plugins": ["edit-link", "prism", "-highlight", "github"],
   "pluginsConfig": {
     "edit-link": {
-      "base": "https://github.com/kypertech/devshare/tree/master",
+      "base": "https://github.com/prescottprue/fireuser/tree/master",
       "label": "Edit This Page"
     },
     "github": {
-      "url": "https://github.com/kypertech/devshare/"
+      "url": "https://github.com/prescottprue/fireuser/"
     }
   }
 }

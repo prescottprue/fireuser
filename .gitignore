@@ -8,3 +8,4 @@ olddocs
 dist
 lib
 *.log
+_book
