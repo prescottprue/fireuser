@@ -1,12 +1,13 @@
 # Fireuser
-[![npm version](https://img.shields.io/npm/v/fireuser.svg?style=flat-square)](https://www.npmjs.com/package/fireuser)
-[![npm downloads](https://img.shields.io/npm/dm/fireuser.svg?style=flat-square)](https://www.npmjs.com/package/fireuser)
-[![build status](https://img.shields.io/travis/prescottprue/fireuser/master.svg?style=flat-square)](https://travis-ci.org/prescottprue/fireuser)
-[![dependencies status](https://img.shields.io/david/prescottprue/fireuser/master.svg?style=flat-square)](https://david-dm.org/prescottprue/fireuser)
-[![codeclimate](https://img.shields.io/codeclimate/github/prescottprue/fireuser.svg?style=flat-square)](https://codeclimate.com/github/prescottprue/fireuser)
-[![coverage](https://img.shields.io/codeclimate/coverage/github/prescottprue/fireuser.svg?style=flat-square)](https://codeclimate.com/github/prescottprue/fireuser)
-[![license](https://img.shields.io/npm/l/fireuser.svg?style=flat-square)](https://github.com/prescottprue/fireuser/blob/master/LICENSE)
-[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
+
+[![NPM version][npm-image]][npm-url]
+[![NPM downloads][npm-downloads-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+[![Dependency Status][daviddm-image]][daviddm-url]
+[![Code Climate][climate-image]][climate-url]
+[![Code Coverage][coverage-image]][coverage-url]
+[![License][license-image]][license-url]
+[![Code Style][code-style-image]][code-style-url]
 
 | Fireuser is a user/session/presense wrapper for [Firebase](http://firebase.com)
 
@@ -60,3 +61,19 @@ var fireuser = new Fireuser("https://<your-app>.firebaseio.com");
 1. Fork repository
 2. Run `npm install` to install dev dependencies.
 3. Run `npm start` to Serve and Open the dev environment.
+
+[npm-image]: https://img.shields.io/npm/v/fireuser.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/fireuser
+[npm-downloads-image]: https://img.shields.io/npm/dm/fireuser.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/prescottprue/fireuser/master.svg?style=flat-square
+[travis-url]: https://travis-ci.org/prescottprue/fireuser
+[daviddm-image]: https://img.shields.io/david/prescottprue/fireuser.svg?style=flat-square
+[daviddm-url]: https://david-dm.org/prescottprue/fireuser
+[climate-image]: https://img.shields.io/codeclimate/github/prescottprue/fireuser.svg?style=flat-square
+[climate-url]: https://codeclimate.com/github/prescottprue/fireuser
+[coverage-image]: https://img.shields.io/codeclimate/coverage/github/prescottprue/fireuser.svg?style=flat-square
+[coverage-url]: https://codeclimate.com/github/prescottprue/fireuser
+[license-image]: https://img.shields.io/npm/l/fireuser.svg?style=flat-square
+[license-url]: https://github.com/prescottprue/fireuser/blob/master/LICENSE
+[code-style-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square
+[code-style-url]: http://standardjs.com/
