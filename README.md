@@ -6,6 +6,7 @@
 [![codeclimate](https://img.shields.io/codeclimate/github/prescottprue/fireuser.svg?style=flat-square)](https://codeclimate.com/github/prescottprue/fireuser)
 [![coverage](https://img.shields.io/codeclimate/coverage/github/prescottprue/fireuser.svg?style=flat-square)](https://codeclimate.com/github/prescottprue/fireuser)
 [![license](https://img.shields.io/npm/l/fireuser.svg?style=flat-square)](https://github.com/prescottprue/fireuser/blob/master/LICENSE)
+[![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 
 | Fireuser is a user/session/presense wrapper for [Firebase](http://firebase.com)
 

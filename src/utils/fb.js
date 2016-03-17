@@ -14,9 +14,6 @@ export default (ref) => {
     /** Get a firebase reference for a path in array | string form
      * @param {String|Array} path relative path to the root folder in Firebase instance
      * @returns {Firebase Reference}
-     * @example
-     * //Array as path
-     * var userRef = fa.fbRef(['users', uid])
      */
     fbRef (path) {
       const args = Array.prototype.slice.call(arguments)
