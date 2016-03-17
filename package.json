@@ -1,6 +1,6 @@
 {
   "name": "fireuser",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "User/session/presense wrapper for Firebase",
   "author": "Prescott Prue (prescottprue)",
   "repo": "https://github.com/prescottprue/fireuser",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "firebase": "^2.4.1",
-    "lodash": "4.3.0"
+    "lodash": "^4.6.1"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
@@ -51,10 +51,9 @@
     "babel-preset-es2015": "^6.5.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
-    "es6-promise": "^3.0.2",
+    "es6-promise": "^3.1.2",
     "gitbook-cli": "^2.1.1",
     "isparta": "^4.0.0",
-    "jsdom": "^8.1.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.4.5",
     "rimraf": "^2.5.1",

@@ -1,29 +1,35 @@
 import Firebase from 'firebase'
+import { isString } from 'lodash'
 
 export default (ref) => {
   let currentUser = null
   const usersListName = 'users'
   let methods = {
     get currentUser () {
-      if (!ref.getAuth() || !currentUser) return null
-      return currentUser
+      return (!ref.getAuth() || !currentUser) ? null : currentUser
     },
 
     getCurrentUser: function () {
-      if (!ref.getAuth()) return Promise.reject({ message: 'Authentication is required to get current user', status: 'UNAUTHORIZED' })
+      if (!ref.getAuth()) return Promise.reject({ message: 'Authentication is required.', status: 'UNAUTHORIZED' })
       if (currentUser) return Promise.resolve(currentUser)
-      return ref.child(usersListName).child(ref.getAuth().uid).once('value').then(snap => currentUser = snap.val())
+      return ref.child(usersListName)
+        .child(ref.getAuth().uid)
+        .once('value')
+        .then(snap => currentUser = snap.val())
     },
 
     logout: function () {
+      if (!ref.getAuth()) return
       return ref.unauth()
     },
+
     /** Modified version of Firebase's authWithPassword that handles presence
      * @param {Object} loginData Login data of new user
      * @return {Promise}
      */
     emailAuth: function (loginData) {
       const { username, name, email } = loginData
+      if (!email) return Promise.reject({ message: 'Username is required' })
       return ref.authWithPassword(loginData).then(authData => {
         this.setupPresence(authData.uid)
         // [TODO] Check for account/Add account if it doesn't already exist
@@ -38,7 +44,7 @@ export default (ref) => {
      * @param {String} provider - Login data of new user. `Required`
      */
     authWithOAuthPopup: function (provider) {
-      if (!provider) return Promise.reject({ message: 'Provider required to auth.', status: 'NULL_PROIVDER' })
+      if (!provider || !isString(provider)) return Promise.reject({ message: 'Provider required to auth.', status: 'NULL_PROIVDER' })
       // [TODO] Check enabled login types
       return ref.authWithOAuthPopup(provider).then(authData => {
         // Manage presence
@@ -63,14 +69,17 @@ export default (ref) => {
       if (!email) return Promise.reject({ message: 'A valid email is required to signup.', status: 'INVALID_EMAIL' })
       // Validate password
       if (!password || password.length <= 8) return Promise.reject({ message: 'A password of at least 8 characters is required to signup.', status: 'INVALID_PASSWORD' })
-      return this.createUser(signupData).then(() => this.emailAuth(signupData).then(authData => this.createProfile(authData)))
+      return this.createUser(signupData)
+        .then(() => this.emailAuth(signupData)
+        .then(authData => this.createProfile(authData)))
     },
 
     providerSignup: function (provider) {
       // 3rd Party Signup
       // Auth using 3rd party OAuth
       // Create new profile with user data
-      return this.authWithOAuthPopup(provider).then(authData => this.createProfile(authData))
+      return this.authWithOAuthPopup(provider)
+        .then(authData => this.createProfile(authData))
     },
 
     createUser: function (userData) {
@@ -83,15 +92,16 @@ export default (ref) => {
       const userRef = usersRef.child(uid)
       let userObj = { role: 10, provider, email, username, name, createdAt: Firebase.ServerValue.TIMESTAMP }
       // Check if account with given email already exists
-      return usersRef.orderByChild('email').equalTo(email).once('value').then(userQuery => {
-        if (userQuery.val()) return Promise.reject({ message: 'This email has already been used to create an account', status: 'EXISTS' })
-        // Account with given email does not already exist
-        return userRef.once('value').then(userSnap => {
-          if (userSnap.val()) return Promise.reject({ message: 'Account already exists' })
-          // [TODO] Add check for email before using it as priority
-          return userRef.setWithPriority(userObj, email).then(() => userObj)
-        })
-      })
+      return usersRef.orderByChild('email')
+        .equalTo(email)
+        .once('value')
+        .then(userQuery =>
+          !userQuery.val()
+            ? userRef.once('value').then(userSnap =>
+              userSnap.val()
+                ? userRef.setWithPriority(userObj, email).then(() => userObj)
+                : Promise.reject({ message: 'Account already exists' }))
+            : Promise.reject({ message: 'This email has already been used to create an account', status: 'EXISTS' }))
     },
 
     /** Start presence management for a specificed user uid. This function is used within Fireadmin login functions.
