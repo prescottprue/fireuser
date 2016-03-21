@@ -1,4 +1,4 @@
-( function (){
+(function () {
   const config = require('../config.json')
   const pkg = require('../package.json')
   const exec = require('child_process').exec

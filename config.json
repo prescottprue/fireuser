@@ -1,4 +1,11 @@
 {
+  "library": {
+    "export": "Fireuser",
+    "file": "fireuser"
+  },
+  "folders": {
+    "dist": "dist"
+  },
   "cdn": {
     "bucket": "prue-cdn",
     "prefix": "fireuser"

@@ -1,6 +1,7 @@
 'use strict'
 var webpack = require('webpack')
 var pkg = require('./package.json')
+var config = require('./config.json')
 
 module.exports = {
   module: {
@@ -10,12 +11,12 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.BannerPlugin('fireadmin.js v' + pkg.version + ' | (c) Prescott Prue.', { raw: false, entryOnly: true })
+    new webpack.BannerPlugin(`${config.library.file}.js v${pkg.version} | (c) Prescott Prue.`, { raw: false, entryOnly: true })
   ],
   output: {
-    library: 'Fireuser',
+    library: config.library.export,
     libraryTarget: 'umd',
-    publicPath: '/dist/'
+    publicPath: `/${config.folders.dist}/`
   },
   resolve: {
     extensions: ['', '.js']
