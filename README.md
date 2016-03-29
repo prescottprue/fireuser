@@ -46,21 +46,26 @@ var fireuser = new Fireuser("https://<your-app>.firebaseio.com");
   ```
 
 3. Start using Fireuser!
-    ```javascript
-    //Get count of users
-    fa.signup().then(function(count){
-        console.log('Your app currently has ' + count + ' users.');
-    });
-    ```
 
-## API Documentation
-### [Docs Page](http://prescottprue.github.com/fireuser)
+  ```javascript
+  //Get count of users
+  fireuser.signup({
+    username: 'testuser',
+    email: 'some@email.com',
+    password: 'asdfasdf'
+  }).then(function(count){
+    console.log('Login was successful');
+  });
+  ```
+
+## [Documentation](https://prescottprue.gitbooks.io/fireuser/content/)
 
 ## Contributing
 
 1. Fork repository
 2. Run `npm install` to install dev dependencies.
-3. Run `npm start` to Serve and Open the dev environment.
+3. Run `npm run build` to build library (NodeJS version in `dist`, UMD/Browser version in Dist)
+4. Run `npm start` to Serve a live/hot reloading dev environment
 
 [npm-image]: https://img.shields.io/npm/v/fireuser.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/fireuser

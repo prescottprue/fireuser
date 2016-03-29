@@ -8,10 +8,14 @@
   "main": "lib/fireuser.js",
   "jsnext:main": "src/index.js",
   "keywords": [
-    "Firebase",
+    "firebase",
     "users",
     "session",
-    "authentication"
+    "security",
+    "authentication",
+    "app",
+    "real-time",
+    "kyper"
   ],
   "files": [
     "src",
@@ -31,12 +35,7 @@
     "watch:lib": "npm run build:lib -- --stats --progress --colors --watch",
     "watch": "npm run watch:umd",
     "prepublish": "npm run clean && npm run test && npm run build",
-    "upload": "node ./bin/upload",
-    "docs:clean": "rimraf _book",
-    "docs:prepare": "gitbook install",
-    "docs:build": "npm run docs:prepare && gitbook build -g prescottprue/fireuser",
-    "docs:watch": "npm run docs:prepare && gitbook serve",
-    "docs:publish": "npm run docs:clean && npm run docs:build && cd _book && git init && git commit --allow-empty -m 'update book' && git checkout -b gh-pages && touch .nojekyll && git add . && git commit -am 'update book' && git push git@github.com:prescottprue/fireuser gh-pages --force"
+    "upload": "node ./bin/upload"
   },
   "dependencies": {
     "firebase": "^2.4.1",
@@ -52,7 +51,6 @@
     "chai": "^3.5.0",
     "chai-as-promised": "^5.2.0",
     "es6-promise": "^3.1.2",
-    "gitbook-cli": "^2.1.1",
     "isparta": "^4.0.0",
     "json-loader": "^0.5.4",
     "mocha": "^2.4.5",

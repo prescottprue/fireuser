@@ -1,9 +1,8 @@
 * Authentication pared to user management
 * User Profile created on signup
 * Session management
-* Descructured Population based on ID
+* Descructured Data based on ID (nosql population)
 * Role management
 
-Possible:
-
-Oauthio integration
+Future:
+* Oauthio integration
