@@ -1,6 +1,6 @@
 {
   "name": "fireuser",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "User/session/presense wrapper for Firebase",
   "author": "Prescott Prue (prescottprue)",
   "repo": "https://github.com/prescottprue/fireuser",

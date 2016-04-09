@@ -1,26 +1,28 @@
 import Firebase from 'firebase'
 import { isString } from 'lodash'
+import { listNames } from '../config'
 
-export default (ref) => {
+export default (url) => {
   let currentUser = null
-  const usersListName = 'users'
+  let rootRef = new Firebase(url)
+
   let methods = {
     get currentUser () {
-      return (!ref.getAuth() || !currentUser) ? null : currentUser
+      return (!rootRef.getAuth() || !currentUser) ? null : currentUser
     },
 
     getCurrentUser: function () {
-      if (!ref.getAuth()) return Promise.reject({ message: 'Authentication is required.', status: 'UNAUTHORIZED' })
+      if (!rootRef.getAuth()) return Promise.reject({ message: 'Authentication is required.', status: 'UNAUTHORIZED' })
       if (currentUser) return Promise.resolve(currentUser)
-      return ref.child(usersListName)
-        .child(ref.getAuth().uid)
+      return rootRef.child(listNames.users)
+        .child(rootRef.getAuth().uid)
         .once('value')
         .then(snap => currentUser = snap.val())
     },
 
     logout: function () {
-      if (!ref.getAuth()) return
-      return ref.unauth()
+      if (!rootRef.getAuth()) return
+      return rootRef.unauth()
     },
 
     /** Modified version of Firebase's authWithPassword that handles presence
@@ -30,7 +32,7 @@ export default (ref) => {
     emailAuth: function (loginData) {
       const { username, name, email } = loginData
       if (!email) return Promise.reject({ message: 'Username is required' })
-      return ref.authWithPassword(loginData).then(authData => {
+      return rootRef.authWithPassword(loginData).then(authData => {
         this.setupPresence(authData.uid)
         // [TODO] Check for account/Add account if it doesn't already exist
         let profileData = { email }
@@ -46,14 +48,15 @@ export default (ref) => {
     authWithOAuthPopup: function (provider) {
       if (!provider || !isString(provider)) return Promise.reject({ message: 'Provider required to auth.', status: 'NULL_PROIVDER' })
       // [TODO] Check enabled login types
-      return ref.authWithOAuthPopup(provider).then(authData => {
+      return rootRef.authWithOAuthPopup(provider).then(authData => {
         this.setupPresence(authData.uid)
         // [TODO] Check for account/Add account if it doesn't already exist
         return authData
-      }, error => {
-        if (error.toString().indexOf('Error: There are no login transports') !== -1) return Promise.reject({ message: `${provider} is not enabled.`, status: 'PROVIDER_NOT_ENABLED' })
-        return Promise.reject(error)
-      })
+      }, error =>
+        error.toString().indexOf('Error: There are no login transports') !== -1
+        ? Promise.reject({ message: `${provider} is not enabled.`, status: 'PROVIDER_NOT_ENABLED' })
+        : Promise.reject(error)
+      )
     },
 
     /**
@@ -78,13 +81,11 @@ export default (ref) => {
         .then(authData => this.createProfile(authData))
     },
 
-    createUser: function (userData) {
-      return ref.createUser(userData)
-    },
+    createUser: userData => rootRef.createUser(userData),
 
     createProfile: function (authData) {
       const { uid, provider, email, username, name } = authData
-      const usersRef = ref.child('users')
+      const usersRef = rootRef.child(listNames.users)
       const userRef = usersRef.child(uid)
       let userObj = { role: 10, provider, email, username, name, createdAt: Firebase.ServerValue.TIMESTAMP }
       // Check if account with given email already exists
@@ -103,11 +104,11 @@ export default (ref) => {
     /** Start presence management for a specificed user uid. This function is used within Fireadmin login functions.
      * @param {String} uid Unique Id for user that for which presence is being setup.
      */
-    setupPresence: function (uid) {
-      let amOnline = ref.child('.info/connected')
-      let onlineRef = ref.child('presence').child(uid)
-      let sessionsRef = ref.child('sessions')
-      // let userSessionRef = ref.child('users').child(uid).child('sessions')
+    setupPresence: uid => {
+      let amOnline = rootRef.child('.info/connected')
+      let onlineRef = rootRef.child(listNames.presence).child(uid)
+      let sessionsRef = rootRef.child(listNames.sessions)
+      // let userSessionRef = rootRef.child('users').child(uid).child('sessions')
       return amOnline.on('value', snapShot => {
         if (!snapShot.val()) return
         let session = sessionsRef.push({ began: Firebase.ServerValue.TIMESTAMP, user: uid }) // add session
@@ -116,7 +117,7 @@ export default (ref) => {
         endedRef.onDisconnect().set(Firebase.ServerValue.TIMESTAMP) // set disconnect
         onlineRef.set(true)
         onlineRef.onDisconnect().remove() // remove from presence list
-        ref.onAuth(authData => { // Do same on unAuth
+        rootRef.onAuth(authData => { // Do same on unAuth
           if (!authData) {
             endedRef.set(Firebase.ServerValue.TIMESTAMP)
             onlineRef.remove()
@@ -129,8 +130,8 @@ export default (ref) => {
     //   // Username signup
     //   // request a signup with username as uid
     //   return apiRequest('signup', signupData, (res) => {
-    //     return ref.authWithCustomToken(res.token).then(authData => {
-    //       return this.createProfile(authData, this.ref, (userAccount) => {
+    //     return rootRef.authWithCustomToken(res.token).then(authData => {
+    //       return this.createProfile(authData, this.rootRef, (userAccount) => {
     //         return userAccount
     //       }, error => {
     //         //Error creating profile

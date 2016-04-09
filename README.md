@@ -34,7 +34,7 @@ Fireuser is especially useful when you are trying to administer a Firebase data 
   Include the Fireuser bundle in your `index.html` :
 
     ```html
-    <script src="http://cdn.prue.io/fireuser/0.0.2/fireuser.min.js"></script>
+    <script src="http://cdn.prue.io/fireuser/0.0.3/fireuser.min.js"></script>
     <!-- Or the following for the latest version -->
     <!-- <script src="http://cdn.prue.io/fireuser/latest/fireuser.min.js"></script> -->
     ```

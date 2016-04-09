@@ -4,7 +4,7 @@ import Firebase from 'firebase'
 
 const testFbUrl = 'https://test.firebaseio.com'
 let ref = new Firebase(testFbUrl)
-let auth = authUtil(ref)
+let auth = authUtil(testFbUrl)
 
 describe('Auth util', () => {
   it('exists', () => {
